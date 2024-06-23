@@ -54,6 +54,10 @@
     </table>
 
     <p class="total">Total Price: $<span id="totalPrice">0</span></p>
+    <p>VAT: $
+        <span id="vat">0</span>
+    </p>
+    <p>Total Price include VAT: $<span id="finalPrice">0</span></p>
 
     <script>
         function addToProductList() {
@@ -69,9 +73,10 @@
 
             accessoryCell.innerHTML = accessory;
             amountCell.innerHTML = amount;
-            priceCell.innerHTML = "$" + price;
+            priceCell.innerHTML = "$" + price * amount;
 
-            updateTotalPrice(price);
+            updateTotalPrice(price * amount);
+
         }
 
         function calculatePrice(accessory) {
@@ -94,8 +99,21 @@
             var totalPrice = parseFloat(totalPriceElement.innerHTML);
             totalPrice += price;
             totalPriceElement.innerHTML = totalPrice.toFixed(2);
+
+            var vatElement = document.getElementById("vat");
+            var currentVat = parseFloat(vatElement.innerHTML);
+            currentVat += price * 0.07;
+            document.getElementById("vat").innerHTML = currentVat.toFixed(2);
+
+            var FinalPriceElement = document.getElementById("finalPrice");
+            var finalPrice = parseFloat(FinalPriceElement.innerHTML);
+            finalPrice = totalPrice + currentVat;
+            FinalPriceElement.innerHTML = finalPrice.toFixed(2);
+
         }
+
     </script>
+
 </body>
 
 </html></select></form>
